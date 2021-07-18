@@ -21,17 +21,12 @@ df = pd.read_csv('13_region.csv')
 all_region = df.region.to_list()
 guessed_region = []
 
-
 #A loop to compare the guessed region to all-region available
 while len(guessed_region) < 13:
     answer_region = (screen.textinput(title=f"{len(guessed_region)}/13 Region Correct!", prompt="What's another region name?")).title()
 
     if answer_region == "Exit":
-        missing_region = []
-        for region in all_region:
-            if region not in guessed_region:
-                missing_region.append(region)
-
+        missing_region = [region for region in all_region if region not in guessed_region]
         new_df = pd.DataFrame(missing_region)
         new_df.to_csv('regions_to_learn.csv')
         break
